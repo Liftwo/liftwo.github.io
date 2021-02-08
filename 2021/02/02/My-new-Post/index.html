@@ -58,19 +58,29 @@
 
     
     
+<div class="tocbot"></div>
+
     
 
     <div class="article-entry" itemprop="articleBody">
       
       
       
-      <p>####去年首次參與了it邦舉辦的鐵人賽，寫的文章都是關於自己在使用Django時所遇到的問題及解決辦法。因為還不知道要在這個剛創立的網站放什麼，就想說也把這些文章一併放過來囉～</p>
-<a id="more"></a>
+      <h3 id="去年首次參與了it邦舉辦的鐵人賽，寫的文章都是關於自己在使用Django時所遇到的問題及解決辦法。因為還不知道要在這個剛創立的網站放什麼，就想說也把這些文章一併放過來囉～"><a href="#去年首次參與了it邦舉辦的鐵人賽，寫的文章都是關於自己在使用Django時所遇到的問題及解決辦法。因為還不知道要在這個剛創立的網站放什麼，就想說也把這些文章一併放過來囉～" class="headerlink" title="去年首次參與了it邦舉辦的鐵人賽，寫的文章都是關於自己在使用Django時所遇到的問題及解決辦法。因為還不知道要在這個剛創立的網站放什麼，就想說也把這些文章一併放過來囉～"></a>去年首次參與了it邦舉辦的鐵人賽，寫的文章都是關於自己在使用Django時所遇到的問題及解決辦法。因為還不知道要在這個剛創立的網站放什麼，就想說也把這些文章一併放過來囉～</h3><a id="more"></a>
 <p>溫馨提示1：我使用的版本是Django2.2.1及Python3.7，我習慣是不要下載太新的版本，因為在這邊我掉了不少坑;明明每步驟都照著做，但結果就是先給你個error，可能是因為套件相容性問題，這時沒辦法你得再重新載可能舊一點的版本試試。</p>
-<p>由於平常是使用Pycharm來作開發，所以接下來的安裝都是基於Pycharm的操作來說明。私心喜歡Pycharm對於套件管理的介面，除了可以很快速的加入你需要的套件，也可以一覽無遺的觀賞目前有哪些 哈，瞬間覺得事情做起來很流暢。如果大家有興趣可以到連結下載，他有兩個版本，我下載的是社群版本(免費版)。</p>
+<p>由於平常是使用Pycharm來作開發，所以接下來的安裝都是基於Pycharm的操作來說明。私心喜歡Pycharm對於套件管理的介面，除了可以很快速的加入你需要的套件，也可以一覽無遺的觀賞目前有哪些 哈，瞬間覺得事情做起來很流暢。如果大家有興趣可以到<a href="">連結</a>下載，他有兩個版本，我下載的是社群版本(免費版)。</p>
 <p>溫馨提示2:我是用Mac，印象中好像Windows的介面會有點不一樣，比如一些按鍵的名稱。</p>
-<p>1.開啟Pycharm，在出現的畫面點選”+Create New Project”。<br>(更正補充：買專業版的話：其實Pycharm有提供直接建立Django專案的功能)</p>
-<p>2.之後會來到這個畫面，做一些虛擬環境的設定，檔案要儲存的位置，還有你要使用的python檔案路徑。</p>
+<ol>
+<li><p>開啟Pycharm，在出現的畫面點選””+Create New Project””。<br> (更正補充：買專業版的話：其實Pycharm有提供直接建立Django專案的功能)</p>
+</li>
+<li><p>之後會來到這個畫面，做一些虛擬環境的設定，檔案要儲存的位置，還有你要使用的python檔案路徑。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200902/20129725hSqFKUQRYJ.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200902/20129725hSqFKUQRYJ.jpg"></p>
+</li>
+<li><p>新專案建立好後呢，接下來需要進入Preferences(Windows好像是叫Settings)作一些設定，首先來到圖3.1的畫面新增最重要的套件Django，圖3.1中的下方有新增鍵（加號)，馬上就會跳出圖3.2的畫面，在搜尋列鍵入django，然後記得在右下方選擇你要的版本，最後按Install Pacakage，結果如圖3.3。安裝的套件都會儲存在venv這個資料夾裡，就是當初我們所創造的虛擬環境。</p>
+<p> 剛開始在學Python基礎時，不懂虛擬環境的重要，覺得用不上，但當開始寫一些應用，終於懂了。透過在一開始創 造一個空的乾淨的環境，謹慎地選擇你要的套件及版本，因為根據經驗，常會遇到Python套件互相衝突而產生問題 (常常被氣得半死，搞定套件就飽了)。</p>
+<p> <em>3.1</em><img src="https://ithelp.ithome.com.tw/upload/images/20200902/20129725R6mFZSz50J.jpg"><br> <em>3.2</em><img src="https://ithelp.ithome.com.tw/upload/images/20200902/201297252tzITJOpJT.jpg"><br> <em>3.3</em><img src="https://ithelp.ithome.com.tw/upload/images/20200902/20129725666BlmcjVg.jpg"></p>
+</li>
+</ol>
+<p>OK到目前為止只是在Pycharm裡開一個專案，今天想講的主要也是使用Pycharm的小小心得(一個隨意風)，明天才要開始進入主題。</p>
 
       
     </div>
@@ -79,7 +89,7 @@
         Share
       </a>
       
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pycharm/" rel="tag">pycharm</a></li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pycharm/" rel="tag">pycharm</a></li></ul>
 
     </footer>
 
