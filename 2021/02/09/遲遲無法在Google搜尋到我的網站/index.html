@@ -67,6 +67,7 @@
       
       
       <p>過了很久發現自建的網站一直沒出現在估狗的搜尋結果，只好透過Google Search Console，並提交網站的網址，這樣一來很快的就能在搜尋引擎看到自己的網站連結了(我的話是當天就可以看到結果了)。</p>
+<a id="more"></a>
 <p>另外，通常一個網站裡面又有更多的連結，如果要一個一個提交，實在太浪費時間，這時候可以透過提交Sitemap的方式，一次性地把網站連結全部都讓Google做索引。Django有一個的App叫Sitemaps，可以來自動產置sitemap.xml，相當方便。</p>
 <p>下面是實作後碰到的幾個問題及解決方法。</p>
 <h3 id="問題一-settings-py"><a href="#問題一-settings-py" class="headerlink" title="問題一:settings.py"></a>問題一:settings.py</h3><p>新增兩個APP到INSTALLED_APPS，以及新增一行SITE_ID=1。</p>
