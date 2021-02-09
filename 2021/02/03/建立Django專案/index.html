@@ -58,13 +58,37 @@
 
     
     
+<div class="tocbot"></div>
+
     
 
     <div class="article-entry" itemprop="articleBody">
       
       
       
-      
+      <p>補充前一篇：在官方文件中有提供Django對應的Python版本，我把他截圖貼了過來。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200903/20129725y8aekHquuU.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200903/20129725y8aekHquuU.jpg"></p>
+<a id="more"></a>
+<h3 id="在終端機新增Django專案"><a href="#在終端機新增Django專案" class="headerlink" title="在終端機新增Django專案"></a>在終端機新增Django專案</h3><p>如果你是買社群版的Pycharm，最好是先在終端機建立Django專案，建好之後再去Pycharm開啟。在終端機先cd到你要儲存的路徑，然後鍵入下面程式碼：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject mysite</span><br></pre></td></tr></table></figure>
+<p>*mysite指的是專案名稱</p>
+<p>建完之後呢，我們就可以在Pycharm開啟Django專案了，可以看到有下面這些檔案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysite&#x2F;    mysite&#x2F;        __init__.py        settings.py        urls.py        wsgi.py    manage.py</span><br></pre></td></tr></table></figure>
+<ol>
+<li> 最外層的mysite可以更改名稱不影醒Django的運作。</li>
+<li> manage.py:利用他在終端機中下命令，請他去執行一些工作。</li>
+<li> 內層的mysite的名稱如果重新命名，你必須做一些檔案內容的更改，比如settings.py，如果該改的沒改到會會出現錯誤，注意使用。</li>
+<li> settings.py:像Django的大腦，一些配置設定都在這裡處理。</li>
+<li> urls.py:我們可以在這個檔案中編排網頁的網址。</li>
+<li> wsgi.py: 詳細的意義我還沒有完全理解，只能先說最後部署網站到Heroku時會用到。</li>
+</ol>
+<h3 id="建立虛擬環境"><a href="#建立虛擬環境" class="headerlink" title="建立虛擬環境"></a>建立虛擬環境</h3><p>再來我們要來設置虛擬環境，首先進入Preferences(圖1)，然後點進Project:mysite底下的Interpreter，右上角有個齒輪的圖案點下去按add，選擇New environment以及填入你要的Python檔案路徑，完成後就按OK。接下來就可以新增Django套件了，新增完就按Apply及OK，你會發現有一個venv資料夾出現在你的檔案列表中，代表虛擬環境建置成功。<br><em>圖1</em><img src="https://ithelp.ithome.com.tw/upload/images/20200903/20129725kokmeIe3Nn.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20200903/20129725kokmeIe3Nn.jpg"></p>
+<h3 id="驗證Django-Project是否有效"><a href="#驗證Django-Project是否有效" class="headerlink" title="驗證Django Project是否有效"></a>驗證Django Project是否有效</h3><p>最後為了測試Django專案到底能不能作業，透過在Pycharm的Terminal鍵入下面程式碼：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<p>P.S. 不知道是不是python版本問題，我要key \“python3\“才會執行。</p>
+<p>看到出現輸出下面這些指令，代表就成功囉！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You have 17 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.Run &#39;python manage.py migrate&#39; to apply them.September 03, 2020 - 11:11:11Django version 2.2.1, using settings &#39;mysite.settings&#39;Starting development server at http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;Quit the server with CONTROL-C.</span><br></pre></td></tr></table></figure>
+<p>“</p>
+
       
     </div>
     <footer class="article-footer">
