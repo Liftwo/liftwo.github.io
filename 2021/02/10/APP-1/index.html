@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    開啟新的Quiz APP |
+    
+    Fly your ideas.</title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-APP-1" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  開啟新的Quiz APP
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/10/APP-1/" class="article-date">
+  <time datetime="2021-02-09T17:23:51.000Z" itemprop="datePublished">2021-02-10</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>專案建立好，現在可以動手寫Quiz App了。</p>
+<a id="more"></a>
+<p>Project跟app的關係就像是，假設現在進到一家保險公司的網站，你既可以在網站上買保單，也可以申請理賠，一個網站不只提供單一功能。Django讓我們可以在project下面管理多個app，這樣在架構較為龐大而複雜的網站時，多管齊下不是問題。</p>
+<h2 id="建立Quiz-App"><a href="#建立Quiz-App" class="headerlink" title="建立Quiz App"></a>建立Quiz App</h2><p>在Terminal鍵入下列後即可在mysite專案下建立一個叫quiz的app：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp quiz</span><br></pre></td></tr></table></figure>
+<p>執行完後他會產生一個quiz的資料夾及下面這些檔案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quiz&#x2F;    migrations&#x2F;        __init__.py    __init__.py    admin.py    apps.py    models.py    tests.py    views.py</span><br></pre></td></tr></table></figure>
+<p>Django的架構模式是由Models、Views及Template所組成，我們在models.py寫資料儲存的模型，在views.py撰寫邏輯，在template可以放置.html，但現在還看不到template的資料夾，這需要自己手動增加，而且template不會放在app裡面。</p>
+<h2 id="第一個網頁"><a href="#第一個網頁" class="headerlink" title="第一個網頁"></a>第一個網頁</h2><p>先在views撰寫網頁邏輯:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*quiz&#x2F;views.py*from django.http import HttpResponsedef index(request):    return HttpResponse(\&quot;Hello, world. You&#39;re at the quiz index.\&quot;)</span><br></pre></td></tr></table></figure>
+<p>既然寫好了一個功能，那怎麼把它具象化變成我們想像中的樣子，首先在quiz底下新增urls.py，這邊可以先複製mysite的url.py內容貼過來，再修改如下，path()有4個參數，必要的有url及views。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*quiz&#x2F;urls.py*from django.urls import pathfrom . import viewsurlpatterns &#x3D; [    path(&#39;&#39;, views.index, name&#x3D;&#39;index&#39;),]</span><br></pre></td></tr></table></figure>
+<p>除了在app的url.py作配置，我們還要再來到project底下的url.py作配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**mysite&#x2F;urls.py**from django.contrib import adminfrom django.urls import include, pathfrom quiz import as quiz_viewsurlpatterns &#x3D; [    path(&#39;quiz&#x2F;&#39;, quiz_views.index),    path(&#39;admin&#x2F;&#39;, admin.site.urls),]</span><br></pre></td></tr></table></figure>
+<p>上面寫法沒問題，但你可以想到的是，這樣每當在app新增一個功能，你就要作兩次的url設定，這邊其實可以透過Django的函式include()簡化這個作法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**mysite&#x2F;urls.py**....省略...urlpatterns &#x3D; [    path(&#39;quiz&#x2F;&#39;, include(&#39;quiz.urls&#39;)),    path(&#39;admin&#x2F;&#39;, admin.site.urls),]</span><br></pre></td></tr></table></figure>
+<p>執行下面命令，來看看我們有沒有成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<p>執行完點選 “<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/&quot;">http://127.0.0.1:8000/&quot;</a> 找不到網頁是正常，先跳到”<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/quiz//&quot;">http://127.0.0.1:8000/quiz\\&quot;</a> ，就可以看到畫面了。</p>
+<p>明天想再繼續講path跟include，今天只有空寫個大概，其實了解這些函式誕生的背後原因蠻有趣的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/10/APP-1/" data-id="ckky9xqru0000u8uv4mqm4jly" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  
+  <a href="/2021/02/09/%E9%81%B2%E9%81%B2%E7%84%A1%E6%B3%95%E5%9C%A8Google%E6%90%9C%E5%B0%8B%E5%88%B0%E6%88%91%E7%9A%84%E7%B6%B2%E7%AB%99/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">遲遲無法在Google搜尋到我的網站</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>Fly your ideas. &copy; 2021</li>
+      
+        <li></li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/chichi.svg" alt="Fly your ideas."></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">Tags</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>
