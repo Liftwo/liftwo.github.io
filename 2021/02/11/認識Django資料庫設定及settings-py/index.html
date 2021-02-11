@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    認識Django資料庫設定及settings.py |
+    
+    Fly your ideas.</title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-認識Django資料庫設定及settings-py" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  認識Django資料庫設定及settings.py
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/11/%E8%AA%8D%E8%AD%98Django%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E5%AE%9A%E5%8F%8Asettings-py/" class="article-date">
+  <time datetime="2021-02-11T08:01:19.000Z" itemprop="datePublished">2021-02-11</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Quiz由多道題目及答案組成，需要一個資料庫儲存這些項目。</p>
+<a id="more"></a>
+<h2 id="DATABASE"><a href="#DATABASE" class="headerlink" title="DATABASE"></a>DATABASE</h2><p>在settings.py做資料庫設定後就可以使用。首先在settings.py會看到很多英文大寫的變數，資料庫的設定就是在DATABASES做設定，Django初步設定sqlite3為資料管理系統，另外可以看到資料庫檔案db.sqlite3也幫我們建好放在專案裡面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DATABASES &#x3D; &#123;    </span><br><span class="line">             &#39;default&#39;: &#123;</span><br><span class="line">             &#39;ENGINE&#39;: &#39;django.db.backends.sqlite3&#39;,</span><br><span class="line">             &#39;NAME&#39;: os.path.join(BASE_DIR, &#39;db.sqlite3&#39;),</span><br><span class="line">             &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BASE-DIR"><a href="#BASE-DIR" class="headerlink" title="BASE_DIR"></a>BASE_DIR</h2><p>BASE_DIR指的是我們專案的根路徑，就是最外層mysite的路徑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BASE_DIR &#x3D; os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br></pre></td></tr></table></figure>
+<p>最裡面的括號是settings.py的路徑，再外面一層是專案mysite的路徑，最外面的括號呢就是mysite資料夾的路徑。</p>
+<h2 id="DEBUG"><a href="#DEBUG" class="headerlink" title="DEBUG"></a>DEBUG</h2><p>若還只是在編寫專案的階段，通常會開啟Debug(DEBUG=True)，因為測試時若出現錯誤，網頁會提示錯誤的程式碼，方便我們解決問題。但當網站正式上線記得要關閉，改設定DEBUG=False。</p>
+<h2 id="INSTALLED-APPS"><a href="#INSTALLED-APPS" class="headerlink" title="INSTALLED_APPS"></a>INSTALLED_APPS</h2><p>Django本身有提供下面幾個應用程式，給開發者了一大助力，但到目前為止我也還不是每個都認識跟用過。admin是一個網站後台管理系統，很快就會用上他;auth可以做到簡單的用戶網站權限管理;sessions跟cookies用意一樣;staticfiles可以幫助開發者管理網站上的靜態檔案。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS &#x3D; [</span><br><span class="line">                  &#39;django.contrib.admin&#39;,</span><br><span class="line">                  &#39;django.contrib.auth&#39;,</span><br><span class="line">                  &#39;django.contrib.contenttypes&#39;,</span><br><span class="line">                  &#39;django.contrib.sessions&#39;,</span><br><span class="line">                  &#39;django.contrib.messages&#39;,</span><br><span class="line">                  &#39;django.contrib.staticfiles&#39;,]</span><br></pre></td></tr></table></figure>
+<h2 id="TEMPLATES"><a href="#TEMPLATES" class="headerlink" title="TEMPLATES"></a>TEMPLATES</h2><p>前面有寫到，我們需要自己新增一個放置html檔的資料夾，當到該步驟時，需要回到這裡做路徑的設置。</p>
+<h2 id="TIME-ZONE"><a href="#TIME-ZONE" class="headerlink" title="TIME_ZONE"></a>TIME_ZONE</h2><p>可以改為所在地的時區，台灣的話就是改成TIME_ZONE = ‘Asia/Taipei’</p>
+<h2 id="將sqlite3改為postgresql"><a href="#將sqlite3改為postgresql" class="headerlink" title="將sqlite3改為postgresql"></a>將sqlite3改為postgresql</h2><p>這次專案不用默認的sqlite3，而是使用postgresql，因據我所知Heroku看起來不支援使用sqlite3，但一開始耳朵很硬，想著先用sqlite3去跑，結果就是怎麼樣都行不通，忘記是出現怎樣的error，等寫到部署網站時再來回頭試一次好了XD</p>
+<p>在settings.py改為使用postgrsql之前，我們的電腦必須先安裝postgresql，另外可以使用pgadmin4(一款postgresql的GUI)輔助我們查詢資料庫的狀態等，這部分篇幅會比較長，明天再開獨立一篇來寫吧～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/11/%E8%AA%8D%E8%AD%98Django%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E5%AE%9A%E5%8F%8Asettings-py/" data-id="ckl0l72di000033uv13yg33vx" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  
+  <a href="/2021/02/10/URLconfs/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">(四）Django URLconfs</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>Fly your ideas. &copy; 2021</li>
+      
+        <li></li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/chichi.svg" alt="Fly your ideas."></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">Tags</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>
