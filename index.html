@@ -71,7 +71,7 @@
       
 
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/02/11/PostgreSQL/">(六)Django - PostgreSQL</a>
+  <a class="article-title" href="/2021/02/11/PostgreSQL/">(六) Django - PostgreSQL</a>
 </h2>
 
 
@@ -94,38 +94,12 @@
       
       
       
-      <a id="more"></a>
-<h2 id="安裝postgreSQL"><a href="#安裝postgreSQL" class="headerlink" title="安裝postgreSQL"></a>安裝postgreSQL</h2><p>下載頁面：<a target="_blank" rel="noopener" href="https://postgresapp.com/downloads.html">https://postgresapp.com/downloads.html</a><br>偷懶一下直接放官方下載操作說明：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725Nhvj4kh5Ys.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725Nhvj4kh5Ys.png"><br>最後要記得設置環境變數！</p>
-<h2 id="安裝pgadmin4"><a href="#安裝pgadmin4" class="headerlink" title="安裝pgadmin4"></a>安裝pgadmin4</h2><p>下載頁面：[<a target="_blank" rel="noopener" href="https://www.pgadmin.org/download/]">https://www.pgadmin.org/download/]</a>(<a target="_blank" rel="noopener" href="https://www.pgadmin.org/download//">https://www.pgadmin.org/download/\</a>)</p>
-<ol>
-<li>我選擇macOS。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725y8Bb81ytvq.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725y8Bb81ytvq.png"></li>
-<li>選擇要的版本。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/201297250I4zxtGqmV.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/201297250I4zxtGqmV.png"></li>
-<li>下載Files底下的dmg檔就好。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725xjLV1VpOjb.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725xjLV1VpOjb.png"></li>
-<li>打開下載好的dmg檔，選擇agree後就會跳到下面這個畫面，把大象圖案拖拉到mac的應用程式，等它複製完成。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725ruNxMUU1qB.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725ruNxMUU1qB.png"></li>
-<li> 點選應用程式中的PostgreSQL(可愛的大象圖案)來開啟pgadmin4，之後會跳到默認的瀏覽器，一開始沒想到他竟然是用網頁開啟。</li>
-<li> 要求設一組密碼，之後開啟都會要求你輸入密碼。</li>
-<li>去postgresql確認伺服器是否啟動，start反灰不能按即代表已開啟。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725GV1JAHi7fF.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725GV1JAHi7fF.png"></li>
-<li>回到pgadmin新增Server：<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725SITCmIf4nl.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725SITCmIf4nl.png"></li>
-<li>填寫General的欄位Name及Connection的欄位Host後儲存即可。<br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725CBM4AdRkyn.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725CBM4AdRkyn.png"><br> <img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725PjmfQExVL4.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725PjmfQExVL4.png"></li>
-<li> 最後可以在左方欄看見新增的Postgresql12。</li>
-<li>接下來終於可以新增資料庫了，Postgresql12下拉然後右鍵點選Database，選擇Create<br><img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725KVXg5fKKcN.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725KVXg5fKKcN.png"></li>
-<li> 儲存完後就算完成建立postgresql資料庫了。</li>
-</ol>
-<h2 id="settings-py"><a href="#settings-py" class="headerlink" title="settings.py"></a>settings.py</h2><ol>
-<li><pre><code>接著回到Django，先安裝psycopg2套件\(安裝他才可以進行postgresql操作\)。
-</code></pre>
-</li>
-<li><pre><code>更改settings.py：ENGINE改為postgresql，NAME、USER及PD都要跟postgresql的資料庫名稱一致，
-</code></pre>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATABASES &#x3D; &#123;   &#39;default&#39;: &#123;       &#39;ENGINE&#39;:&#39;django.db.backends.postgresql&#39;,       &#39;NAME&#39;:&#39;quiz&#39;,       &#39;USER&#39;:&#39;postgres&#39;,       &#39;PASSWORD&#39;:&#39;pd&#39;,       &#39;HOST&#39;:&#39;localhost&#39;,&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>跑跑看runserver，如果成功代表設定上沒有什麼問題。</p>
-<p> NaN.     以往每次在執行完runserver都會看到下面像提示的語句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You have 17 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.Run &#39;python manage.py migrate&#39; to apply them.</span><br></pre></td></tr></table></figure>
-<p>現在資料庫建好了，就可以來處理這個問題，執行python manage.py migrate把內建的app(admin, auth, contenttypes sessions)需要的table放進資料庫裡。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725lxz07tRBIO.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725lxz07tRBIO.png"><br>4. 回到pgadmin，點選quiz⇢Schemas⇢Tables就可以看到新增的tables了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200907/20129725vRTQWVSCjn.png" alt="https://ithelp.ithome.com.tw/upload/images/20200907/20129725vRTQWVSCjn.png"></p>
-<p>資料庫的設定就先到這邊～</p>
-
+      <h2 id="安裝postgreSQL"><a href="#安裝postgreSQL" class="headerlink" title="安裝postgreSQL"></a>安裝postgreSQL</h2>
+      
+      <a class="article-more-link" href="/2021/02/11/PostgreSQL/">
+        Read More...
+      </a>
+      
       
     </div>
     <footer class="article-footer">
