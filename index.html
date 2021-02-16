@@ -62,6 +62,64 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="post-Django-資料庫互動" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/">(十) Django-資料庫互動</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/" class="article-date">
+  <time datetime="2021-02-16T07:58:30.000Z" itemprop="datePublished">2021-02-16</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Django提供一個API作為與資料庫的接口，只要進入shell輸入指令就可以來操作資料庫了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py shell</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/">
+        Read More...
+      </a>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/" data-id="ckl7pw9h60000nkuvds2jbee8" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="post-資料模型重置方法fake-實例" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -71,7 +129,7 @@
       
 
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/">資料模型重置方法fake-實例</a>
+  <a class="article-title" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/">(九) 資料模型重置方法fake-實例</a>
 </h2>
 
 
@@ -94,55 +152,12 @@
       
       
       
-      <h2 id="第一種情況：最初即使用現有的資料庫"><a href="#第一種情況：最初即使用現有的資料庫" class="headerlink" title="第一種情況：最初即使用現有的資料庫"></a>第一種情況：最初即使用現有的資料庫</h2><ol>
-<li><pre><code>在settings.py修改要連線的資料庫。
-</code></pre>
-</li>
-<li><pre><code>執行python3 manage.py inspectdb可以產生資料庫模型，把它複製貼到models.py。
-</code></pre>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Quiz(models.Model):    question_text &#x3D; models.CharField(max_length&#x3D;200)    class Meta:        managed &#x3D; True        app_label &#x3D; &#39;quiz&#39;        db_table &#x3D; &#39;preexist&#39;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li><pre><code>執行下面語句：
-</code></pre>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations quiz</span><br></pre></td></tr></table></figure>
-<p>接著執行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate quiz</span><br></pre></td></tr></table></figure>
-<p>結果報錯：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.db.utils.ProgrammingError: relation \&quot;preexist\&quot; already exists</span><br></pre></td></tr></table></figure>
-<p>如果直接跑runserver，結果會出現：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">You have 1 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): quiz.Run &#39;python manage.py migrate&#39; to apply them.</span><br></pre></td></tr></table></figure>
-<p>改用fake再跑runserver就沒有跑出上面的問題了，就可以繼續進行專案。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate --fake quiz</span><br></pre></td></tr></table></figure>
-<h2 id="第二種情況：中途轉換資料庫"><a href="#第二種情況：中途轉換資料庫" class="headerlink" title="第二種情況：中途轉換資料庫"></a>第二種情況：中途轉換資料庫</h2><h4 id="一、保留migrations下的記錄"><a href="#一、保留migrations下的記錄" class="headerlink" title="一、保留migrations下的記錄"></a>一、保留migrations下的記錄</h4><p>假設中途想改用另外的資料庫，欄位跟現在的資料庫不相同，資料模型就必須修改。<br>資料庫設定跟資料模型修改好，執行基本步驟後，跟上個情況報一樣的錯：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.db.utils.ProgrammingError: relation \&quot;quiz_question\&quot; already exists</span><br></pre></td></tr></table></figure>
-<p>同樣跑fake後執行runserver沒問題。</p>
-<h4 id="二、刪除migrations下的記錄"><a href="#二、刪除migrations下的記錄" class="headerlink" title="二、刪除migrations下的記錄"></a>二、刪除migrations下的記錄</h4><ol>
-<li><pre><code>讓整個執行紀錄回到零：
-</code></pre>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate --fake quiz zero</span><br></pre></td></tr></table></figure>
-<p>結果跑出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:  Unapply all migrations: quizRunning migrations:  Rendering model states... DONE  Unapplying animal.0001_initial... FAKED</span><br></pre></td></tr></table></figure>
-<p>2.接著就可以手動刪除migrations底下的檔案，除了__init__.py。<br>3.重新建立資料紀錄檔：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations quiz</span><br></pre></td></tr></table></figure>
-<p>結果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Migrations for &#39;quiz&#39;:  quiz&#x2F;migrations&#x2F;0001_initial.py    - Create model Choice</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li><pre><code>因為是現有的資料庫，必然不能直接執行migrate，所以要用fake：
-</code></pre>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate --fake-initial quiz</span><br></pre></td></tr></table></figure>
-<p>結果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:  Apply all migrations: quizRunning migrations:  Applying animal.0001_initial... FAKED</span><br></pre></td></tr></table></figure>
-<p>這樣就不會動到現有的資料又可以更改資料庫模型了！</p>
-<h2 id="fake-vs-fake–initial"><a href="#fake-vs-fake–initial" class="headerlink" title="fake vs fake–initial"></a>fake vs fake–initial</h2><p>就今天試做的感覺，兩者在這兩種情況都可以解決報錯的問題，差別在於initial的方法，讓我們可以刪除多餘的migrations紀錄，畢竟整個資料庫都重置，先前的紀錄檔案也沒有留下的必要。</p>
-
+      <h2 id="第一種情況：最初即使用現有的資料庫"><a href="#第一種情況：最初即使用現有的資料庫" class="headerlink" title="第一種情況：最初即使用現有的資料庫"></a>第一種情況：最初即使用現有的資料庫</h2>
+      
+      <a class="article-more-link" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/">
+        Read More...
+      </a>
+      
       
     </div>
     <footer class="article-footer">
@@ -333,69 +348,12 @@
 
 </article>
     
-    <article id="post-認識Django資料庫設定及settings-py" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/11/%E8%AA%8D%E8%AD%98Django%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E5%AE%9A%E5%8F%8Asettings-py/">(五)認識Django資料庫設定及settings.py</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/11/%E8%AA%8D%E8%AD%98Django%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E5%AE%9A%E5%8F%8Asettings-py/" class="article-date">
-  <time datetime="2021-02-11T08:01:19.000Z" itemprop="datePublished">2021-02-11</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>Quiz由多道題目及答案組成，需要一個資料庫儲存這些項目。</p>
-      
-      <a class="article-more-link" href="/2021/02/11/%E8%AA%8D%E8%AD%98Django%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E5%AE%9A%E5%8F%8Asettings-py/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/11/%E8%AA%8D%E8%AD%98Django%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E5%AE%9A%E5%8F%8Asettings-py/" data-id="ckl0l72di000033uv13yg33vx" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一頁</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一頁</a>
   </nav>
   
 </section>
