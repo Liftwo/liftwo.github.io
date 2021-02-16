@@ -67,20 +67,9 @@
       
       
       <h2 id="第一種情況：最初即使用現有的資料庫"><a href="#第一種情況：最初即使用現有的資料庫" class="headerlink" title="第一種情況：最初即使用現有的資料庫"></a>第一種情況：最初即使用現有的資料庫</h2><a id="more"></a>
-<ol>
-<li><pre><code>在settings.py修改要連線的資料庫。
-</code></pre>
-</li>
-<li><pre><code>執行python3 manage.py inspectdb可以產生資料庫模型，把它複製貼到models.py。
-</code></pre>
-</li>
-</ol>
+<p> 1.在settings.py修改要連線的資料庫。<br> 2.執行python3 manage.py inspectdb可以產生資料庫模型，把它複製貼到models.py。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Quiz(models.Model):    question_text &#x3D; models.CharField(max_length&#x3D;200)    class Meta:        managed &#x3D; True        app_label &#x3D; &#39;quiz&#39;        db_table &#x3D; &#39;preexist&#39;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li><pre><code>執行下面語句：
-</code></pre>
-</li>
-</ol>
+<p> 3.執行下面語句：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations quiz</span><br></pre></td></tr></table></figure>
 <p>接著執行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate quiz</span><br></pre></td></tr></table></figure>
@@ -93,11 +82,7 @@
 <h2 id="第二種情況：中途轉換資料庫"><a href="#第二種情況：中途轉換資料庫" class="headerlink" title="第二種情況：中途轉換資料庫"></a>第二種情況：中途轉換資料庫</h2><h4 id="一、保留migrations下的記錄"><a href="#一、保留migrations下的記錄" class="headerlink" title="一、保留migrations下的記錄"></a>一、保留migrations下的記錄</h4><p>假設中途想改用另外的資料庫，欄位跟現在的資料庫不相同，資料模型就必須修改。<br>資料庫設定跟資料模型修改好，執行基本步驟後，跟上個情況報一樣的錯：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.db.utils.ProgrammingError: relation \&quot;quiz_question\&quot; already exists</span><br></pre></td></tr></table></figure>
 <p>同樣跑fake後執行runserver沒問題。</p>
-<h4 id="二、刪除migrations下的記錄"><a href="#二、刪除migrations下的記錄" class="headerlink" title="二、刪除migrations下的記錄"></a>二、刪除migrations下的記錄</h4><ol>
-<li><pre><code>讓整個執行紀錄回到零：
-</code></pre>
-</li>
-</ol>
+<h4 id="二、刪除migrations下的記錄"><a href="#二、刪除migrations下的記錄" class="headerlink" title="二、刪除migrations下的記錄"></a>二、刪除migrations下的記錄</h4><p>1.讓整個執行紀錄回到零：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate --fake quiz zero</span><br></pre></td></tr></table></figure>
 <p>結果跑出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:  Unapply all migrations: quizRunning migrations:  Rendering model states... DONE  Unapplying animal.0001_initial... FAKED</span><br></pre></td></tr></table></figure>
@@ -105,11 +90,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations quiz</span><br></pre></td></tr></table></figure>
 <p>結果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Migrations for &#39;quiz&#39;:  quiz&#x2F;migrations&#x2F;0001_initial.py    - Create model Choice</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li><pre><code>因為是現有的資料庫，必然不能直接執行migrate，所以要用fake：
-</code></pre>
-</li>
-</ol>
+<p>4.因為是現有的資料庫，必然不能直接執行migrate，所以要用fake：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate --fake-initial quiz</span><br></pre></td></tr></table></figure>
 <p>結果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:  Apply all migrations: quizRunning migrations:  Applying animal.0001_initial... FAKED</span><br></pre></td></tr></table></figure>
