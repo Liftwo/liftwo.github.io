@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    (十一) Django-Admin |
+    
+    Fly your ideas.</title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Django-Admin" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  (十一) Django-Admin
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-Admin/" class="article-date">
+  <time datetime="2021-02-17T06:55:47.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Django有一個內建的app叫admin，它是一個後台管理系統，提供資料的新增或管理功能，在瀏覽器開啟。</p>
+<h2 id="註冊帳戶"><a href="#註冊帳戶" class="headerlink" title="註冊帳戶"></a>註冊帳戶</h2><p>第一件事就是要先創立帳戶，輸入下面指令，之後會依序要求你鍵入帳戶資料：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; python3 manage.py creatsuperuser</span><br></pre></td></tr></table></figure>
+<p>創建成功後執行runserver，網址輸入<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> ，就可以看到下面的登入畫面了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725ubSRcBxdy8.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725ubSRcBxdy8.png"></p>
+<h2 id="Register-Question"><a href="#Register-Question" class="headerlink" title="Register Question"></a>Register Question</h2><p>需要先編輯quiz/admin.py，才可以在後台系統進行資料的新增及變更：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.contrib import adminfrom .models import Question, Choiceclass ChoiceInline(admin.StackedInline): # class StachedInline    model &#x3D; Choice    extra &#x3D; 4 # 一個問題有四個選項class QuestionAdmin(admin.ModelAdmin):    list_display &#x3D; (&#39;id&#39;, &#39;question_text&#39;) # 詳細說明參考附錄圖一    fieldsets &#x3D; [        (None, &#123;&#39;fields&#39;: [&#39;question_text&#39;]&#125;),    ] # 詳細說明參考附錄圖二    inlines &#x3D; [ChoiceInline]admin.site.register(Question, QuestionAdmin)</span><br></pre></td></tr></table></figure>
+<p>admin的介面現在看得到quiz專案的Question：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Kz7Js0fULr.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Kz7Js0fULr.png"><br>點擊+add，畫面顯示可以同時新增問題及選項：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725y464HrCL9c.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725y464HrCL9c.png"></p>
+<h3 id="附錄：圖片"><a href="#附錄：圖片" class="headerlink" title="附錄：圖片"></a>附錄：圖片</h3><p>圖一：藉由list_display，可以選擇你要呈現的欄位。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725MaAAbXLPHJ.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725MaAAbXLPHJ.png"><br>圖二：filedsets是一個list，由two-tuples組成 [(name, field_options), …]，name是指該下圖這個區塊的名稱，我取None，所以介面就沒顯示了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Ho6iGT9ygV.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Ho6iGT9ygV.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-Admin/" data-id="ckl93d7p90000dvuv425n56fy" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  
+  <a href="/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">(十) Django-資料庫互動</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>Fly your ideas. &copy; 2021</li>
+      
+        <li></li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/chichi.svg" alt="Fly your ideas."></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">Tags</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

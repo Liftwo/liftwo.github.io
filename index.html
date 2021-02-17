@@ -62,6 +62,66 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="post-Django-Admin" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/17/Django-Admin/">(十一) Django-Admin</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-Admin/" class="article-date">
+  <time datetime="2021-02-17T06:55:47.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Django有一個內建的app叫admin，它是一個後台管理系統，提供資料的新增或管理功能，在瀏覽器開啟。</p>
+<h2 id="註冊帳戶"><a href="#註冊帳戶" class="headerlink" title="註冊帳戶"></a>註冊帳戶</h2><p>第一件事就是要先創立帳戶，輸入下面指令，之後會依序要求你鍵入帳戶資料：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; python3 manage.py creatsuperuser</span><br></pre></td></tr></table></figure>
+<p>創建成功後執行runserver，網址輸入<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> ，就可以看到下面的登入畫面了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725ubSRcBxdy8.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725ubSRcBxdy8.png"></p>
+<h2 id="Register-Question"><a href="#Register-Question" class="headerlink" title="Register Question"></a>Register Question</h2><p>需要先編輯quiz/admin.py，才可以在後台系統進行資料的新增及變更：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.contrib import adminfrom .models import Question, Choiceclass ChoiceInline(admin.StackedInline): # class StachedInline    model &#x3D; Choice    extra &#x3D; 4 # 一個問題有四個選項class QuestionAdmin(admin.ModelAdmin):    list_display &#x3D; (&#39;id&#39;, &#39;question_text&#39;) # 詳細說明參考附錄圖一    fieldsets &#x3D; [        (None, &#123;&#39;fields&#39;: [&#39;question_text&#39;]&#125;),    ] # 詳細說明參考附錄圖二    inlines &#x3D; [ChoiceInline]admin.site.register(Question, QuestionAdmin)</span><br></pre></td></tr></table></figure>
+<p>admin的介面現在看得到quiz專案的Question：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Kz7Js0fULr.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Kz7Js0fULr.png"><br>點擊+add，畫面顯示可以同時新增問題及選項：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725y464HrCL9c.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725y464HrCL9c.png"></p>
+<h3 id="附錄：圖片"><a href="#附錄：圖片" class="headerlink" title="附錄：圖片"></a>附錄：圖片</h3><p>圖一：藉由list_display，可以選擇你要呈現的欄位。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725MaAAbXLPHJ.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725MaAAbXLPHJ.png"><br>圖二：filedsets是一個list，由two-tuples組成 [(name, field_options), …]，name是指該下圖這個區塊的名稱，我取None，所以介面就沒顯示了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Ho6iGT9ygV.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Ho6iGT9ygV.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-Admin/" data-id="ckl93d7p90000dvuv425n56fy" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="post-Django-資料庫互動" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -276,63 +336,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://liftwo.github.io/2021/02/13/Creating-models/" data-id="ckl3kol7w00004tuv071k39iy" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-PostgreSQL" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/11/PostgreSQL/">(六) Django - PostgreSQL</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/11/PostgreSQL/" class="article-date">
-  <time datetime="2021-02-11T08:49:09.000Z" itemprop="datePublished">2021-02-11</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <h2 id="安裝postgreSQL"><a href="#安裝postgreSQL" class="headerlink" title="安裝postgreSQL"></a>安裝postgreSQL</h2>
-      
-      <a class="article-more-link" href="/2021/02/11/PostgreSQL/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/11/PostgreSQL/" data-id="ckl22bzyx0000tuuvd262e4bn" class="article-share-link">
         Share
       </a>
       
