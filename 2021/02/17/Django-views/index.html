@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    (十二) Django - views |
+    
+    Fly your ideas.</title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Django-views" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  (十二) Django - views
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-views/" class="article-date">
+  <time datetime="2021-02-17T07:07:19.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>今天來到MVT的V，views是編寫邏輯的地方，例如定義如何將資料庫的資料呈現在網頁。</p>
+<a id="more"></a>
+<h3 id="Homepage"><a href="#Homepage" class="headerlink" title="Homepage"></a>Homepage</h3><p>先簡單的做個首頁。<br>在內層的mysite下面新增一個views.py，寫下第一個view function：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from django.http import HttpResponse</span><br><span class="line">    def homepage(request):</span><br><span class="line">    return HttpResponse(&quot;Let&#39;s get it started.&quot;)</span><br></pre></td></tr></table></figure>
+<ol>
+<li> 從模組django.http匯入class HttpResponse，它的典型用法是可以在頁面上顯示一串文字。</li>
+<li> 新增一組函式，記住每一組函式都要有個HttpRequest的物件作為第一個參數，該物件在Django都會寫成request。</li>
+<li> 面對request的提出，網頁自然要給一個response，透過HttpResponse，網頁會回傳指定的字串。</li>
+</ol>
+<h3 id="URLS配對views"><a href="#URLS配對views" class="headerlink" title="URLS配對views"></a>URLS配對views</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># mysite&#x2F;mysite&#x2F;urls.py</span><br><span class="line">from django.contrib import admin</span><br><span class="line">from django.urls import path, include</span><br><span class="line">from . import views</span><br><span class="line">urlpatterns &#x3D; [</span><br><span class="line">    path(&#39;admin&#x2F;&#39;, admin.site.urls),</span><br><span class="line">    path(&#39;&#39;, views.homepage),</span><br><span class="line">    path(&#39;quiz&#x2F;&#39;, include(&#39;quiz.urls&#39;)),]</span><br></pre></td></tr></table></figure>
+<h3 id="Template"><a href="#Template" class="headerlink" title="Template"></a>Template</h3><p>今天先簡單提一點Template，將首頁加點樣式。<br>1.首先在外層的mysite下新增一個templates資料夾(跟quiz資料夾要同一層)，然後新增一個叫homepage的html檔，內容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># mysite&#x2F;templates&#x2F;homepage.html</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt; </span><br><span class="line">       &lt;title&gt;Home page&lt;&#x2F;title&gt;   </span><br><span class="line">       &lt;style&gt;          </span><br><span class="line">           body &#123;           </span><br><span class="line">                background-color: aquamarine;         </span><br><span class="line">           &#125;           </span><br><span class="line">           h1,h3&#123;       </span><br><span class="line">                 color: white;   </span><br><span class="line">           &#125;   </span><br><span class="line">       &lt;&#x2F;style&gt;  </span><br><span class="line">    &lt;&#x2F;head&gt;  </span><br><span class="line">    &lt;body&gt;       </span><br><span class="line">        &lt;h1&gt;Welcome.&lt;&#x2F;h1&gt;  </span><br><span class="line">        &lt;h3&gt;&#123;&#123; now &#125;&#125;&lt;&#x2F;h3&gt; </span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>2.function homepage改寫如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import renderimport datetime</span><br><span class="line">def homepage(request):  </span><br><span class="line">    now &#x3D; datetime.datetime.now() # 現在時間</span><br><span class="line">    context &#x3D; &#123;&#39;now&#39;:now&#125;    </span><br><span class="line">    return render(request, &#39;homepage.html&#39;, context)</span><br></pre></td></tr></table></figure>
+<p>3.跑完runserver結果網頁顯示TemplateDoesNotExist，這邊再回settings.py做設定，需要把templates的路徑告訴給Django，這邊更改DIRS的部分即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">TEMPLATES &#x3D; [</span><br><span class="line">    &#123;&#39;BACKEND&#39;: &#39;django.template.backends.django.DjangoTemplates&#39;,</span><br><span class="line">     &#39;DIRS&#39;: [os.path.join(BASE_DIR, &#39;templates&#39;)],</span><br><span class="line">     &#39;APP_DIRS&#39;: True,</span><br><span class="line">     &#39;OPTIONS&#39;: &#123;&#39;context_processors&#39;:[&#39;django.template.context_processors.debug&#39;,</span><br><span class="line">                                       &#39;django.template.context_processors.request&#39;,</span><br><span class="line">                                       &#39;django.contrib.auth.context_processors.auth&#39;,</span><br><span class="line">                                       &#39;django.contrib.messages.context_processors.messages&#39;, ],&#125;,&#125;,]</span><br></pre></td></tr></table></figure>
+<p>再runserver一次就可以跑出頁面了，簡單的把背景換個顏色，然後加上時間。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200913/20129725eNL6NPd2mR.png" alt="https://ithelp.ithome.com.tw/upload/images/20200913/20129725eNL6NPd2mR.png"></p>
+<p>小結：views這邊有個學習重點，就是HttpResponse、render跟redirect(之後會大量使用到)的功能跟用法，明天再來看看～晚安</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-views/" data-id="ckl95ner500041puv3ebi6tv0" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/02/17/Django-render-redirect/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      (十三) &#39;Django - render, redirect&#39;
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/02/17/Django-Admin/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">(十一) Django - Admin</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>Fly your ideas. &copy; 2021</li>
+      
+        <li></li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/chichi.svg" alt="Fly your ideas."></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">Tags</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

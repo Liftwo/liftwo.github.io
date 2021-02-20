@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    (十) Django-資料庫互動 |
+    (十三) &#39;Django - render, redirect&#39; |
     
     Fly your ideas.</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-Django-資料庫互動" class="article article-type-post" itemscope
+  <article id="post-Django-render-redirect" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  (十) Django-資料庫互動
+  (十三) &#39;Django - render, redirect&#39;
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/" class="article-date">
-  <time datetime="2021-02-16T07:58:30.000Z" itemprop="datePublished">2021-02-16</time>
+      <a href="/2021/02/17/Django-render-redirect/" class="article-date">
+  <time datetime="2021-02-17T07:26:34.000Z" itemprop="datePublished">2021-02-17</time>
 </a>
       
     </div>
@@ -66,20 +66,21 @@
       
       
       
-      <p>Django提供一個API作為與資料庫的接口，只要進入shell輸入指令就可以來操作資料庫了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py shell</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="一、新增資料"><a href="#一、新增資料" class="headerlink" title="一、新增資料"></a>一、新增資料</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from quiz.models import Question, Choice # 匯入model&gt;&gt;&gt; Question.objects.all() # 列出資料庫的所有列&lt;QuerySet []&gt; # 結果表示目前還沒有任何資料&gt;&gt;&gt; q &#x3D; Question(question_text&#x3D;\&quot;哈利波特中，普等巫測成績等級最高的是?\&quot;) # 新增資料列&gt;&gt;&gt; q.save() # 完成這一步才算儲存&gt;&gt;&gt; q.id1 # Django本身內建id欄位&gt;&gt;&gt; q.question_text\&quot;哈利波特中，普等巫測成績等級最高的是?\&quot;&gt;&gt;&gt; q.question_text &#x3D; \&quot;佛地魔的本名是?\&quot; # 更改資料&gt;&gt;&gt; q.save()&gt;&gt;&gt; Question.objects.all()&lt;QuerySet [&lt;Question: Question object (1)&gt;]&gt;</span><br></pre></td></tr></table></figure>
-<p>OK，這樣根本看不出來它是誰，需要幫models.py加點東西:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.db import modelsclass Question(models.Model):    # ...    def __str__(self):        return self.question_textclass Choice(models.Model):    # ...    def __str__(self):        return self.choice_text</span><br></pre></td></tr></table></figure>
-<p>再跑一次：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;QuerySet [&lt;Question: 佛地魔的本名是?&gt;]&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="二、新增一對多的資料"><a href="#二、新增一對多的資料" class="headerlink" title="二、新增一對多的資料"></a>二、新增一對多的資料</h4><p>新增題目選項：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; q &#x3D; Question.objects.get(pk&#x3D;1) # pk:primary_key，由於我們在models.py並沒有指定其他欄位為主鍵，Django本身默認id為主鍵，固代入id&#x3D;1也可以。&gt;&gt;&gt; q.choice_set.all() # 得到該Question相關的Choice&lt;QuerySet []&gt; # 還沒有新增所以得到一個空的list&gt;&gt;&gt; c &#x3D; q.choice_set.create(choice_text&#x3D;&#39;Tom Marvolo Riddle&#39;, score&#x3D;10)&gt;&gt;&gt; c.question # Choice所屬的Question&lt;Question: 佛地魔的本名是?&gt;# 繼續新增Choice&gt;&gt;&gt; q.choice_set.create(choice_text&#x3D;&#39;Tom Marvilo Riddle&#39;, score&#x3D;0)&gt;&gt;&gt; q.choice_set.create(choice_text&#x3D;&#39;Tom Marvin Riddle&#39;, score&#x3D;0)&gt;&gt;&gt; q.choice_set.create(choice_text&#x3D;&#39;Tom Ravolo Riddle&#39;, score&#x3D;0)&gt;&gt;&gt; q.choice_set.all()&lt;QuerySet [&lt;Choice: Tom Marvolo Riddle&gt;, &lt;Choice: Tom Marvilo Riddle&gt;, &lt;Choice: Tom Marvin Riddle&gt;, &lt;Choice: Tom Ravolo Riddle&gt;]&gt;</span><br></pre></td></tr></table></figure>
+      <h3 id="render"><a href="#render" class="headerlink" title="render( )"></a>render( )</h3><p>render是指渲染模板(template)的意思，一開始還真覺得抽象，渲染不是畫畫才會用到的名詞XD，還是直接看例子比較快：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import renderimport datetimedef homepage(request):    now &#x3D; datetime.datetime.now() # 現在時間    context &#x3D; &#123;&#39;now&#39;:now&#125;    return render(request, &#39;homepage.html&#39;, context)</span><br></pre></td></tr></table></figure>
+<p>render的必要參數有：<br>✦ request<br>✦ template_name：要使用的網頁模版。</p>
+<p>另外這個範例還加了一個非必要參數：<br>✦ context：必須是dictionary。</p>
+<p>這邊看一下homepage.html，兩個大括號是固定用法，中間就放context的key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;...省略        &lt;h3&gt;&#123;&#123; now &#125;&#125;&lt;&#x2F;h3&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="redirect"><a href="#redirect" class="headerlink" title="redirect( )"></a>redirect( )</h3><p>redirect裡面放url參數，目的是要跳轉到這個網址去，舉例來說：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def my_view(request):    ...    return redirect(&#39;&#x2F;quiz&#x2F;&#39;)</span><br></pre></td></tr></table></figure>
+<p>執行my_view，瀏覽器就會跳轉到 “<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/quiz&quot;%E3%80%82">http://127.0.0.1:8000/quiz&quot;。</a></p>
+<p>小結：兩者最明顯的差異在於redirect並不對樣板做任何影響，只是導引到另一個頁面，而render則是可以去變化模板的內容。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/" data-id="ckl7pw9h60000nkuvds2jbee8" class="article-share-link">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-render-redirect/" data-id="ckl95ner400021puv7jtmaxny" class="article-share-link">
         Share
       </a>
       
@@ -93,19 +94,19 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/02/17/Django-Admin/" class="article-nav-link">
+  <a href="/2021/02/17/Django-template-part1/" class="article-nav-link">
     <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
-      (十一) Django - Admin
+      (十四) Django - template(part1)
       
     </div>
   </a>
   
   
-  <a href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/" class="article-nav-link">
+  <a href="/2021/02/17/Django-views/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">(九) 資料模型重置方法fake-實例</div>
+    <div class="article-nav-title">(十二) Django - views</div>
   </a>
   
 </nav>

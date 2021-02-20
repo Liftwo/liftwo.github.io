@@ -62,6 +62,182 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="post-Django-template-part1" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/17/Django-template-part1/">(十四) Django - template(part1)</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-template-part1/" class="article-date">
+  <time datetime="2021-02-17T07:31:24.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Quiz的專案結構相當簡單，只需要建立測驗及結果的畫面，從quiz/urls.py來看：</p>
+      
+      <a class="article-more-link" href="/2021/02/17/Django-template-part1/">
+        Read More...
+      </a>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-template-part1/" data-id="ckl95neqr00001puv33qk4uvr" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Django-render-redirect" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/17/Django-render-redirect/">(十三) &#39;Django - render, redirect&#39;</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-render-redirect/" class="article-date">
+  <time datetime="2021-02-17T07:26:34.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h3 id="render"><a href="#render" class="headerlink" title="render( )"></a>render( )</h3><p>render是指渲染模板(template)的意思，一開始還真覺得抽象，渲染不是畫畫才會用到的名詞XD，還是直接看例子比較快：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import renderimport datetimedef homepage(request):    now &#x3D; datetime.datetime.now() # 現在時間    context &#x3D; &#123;&#39;now&#39;:now&#125;    return render(request, &#39;homepage.html&#39;, context)</span><br></pre></td></tr></table></figure>
+<p>render的必要參數有：<br>✦ request<br>✦ template_name：要使用的網頁模版。</p>
+<p>另外這個範例還加了一個非必要參數：<br>✦ context：必須是dictionary。</p>
+<p>這邊看一下homepage.html，兩個大括號是固定用法，中間就放context的key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;...省略        &lt;h3&gt;&#123;&#123; now &#125;&#125;&lt;&#x2F;h3&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="redirect"><a href="#redirect" class="headerlink" title="redirect( )"></a>redirect( )</h3><p>redirect裡面放url參數，目的是要跳轉到這個網址去，舉例來說：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def my_view(request):    ...    return redirect(&#39;&#x2F;quiz&#x2F;&#39;)</span><br></pre></td></tr></table></figure>
+<p>執行my_view，瀏覽器就會跳轉到 “<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/quiz&quot;%E3%80%82">http://127.0.0.1:8000/quiz&quot;。</a></p>
+<p>小結：兩者最明顯的差異在於redirect並不對樣板做任何影響，只是導引到另一個頁面，而render則是可以去變化模板的內容。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-render-redirect/" data-id="ckl95ner400021puv7jtmaxny" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Django-views" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/17/Django-views/">(十二) Django - views</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-views/" class="article-date">
+  <time datetime="2021-02-17T07:07:19.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>今天來到MVT的V，views是編寫邏輯的地方，例如定義如何將資料庫的資料呈現在網頁。</p>
+      
+      <a class="article-more-link" href="/2021/02/17/Django-views/">
+        Read More...
+      </a>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-views/" data-id="ckl95ner500041puv3ebi6tv0" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="post-Django-Admin" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -71,7 +247,7 @@
       
 
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/02/17/Django-Admin/">(十一) Django-Admin</a>
+  <a class="article-title" href="/2021/02/17/Django-Admin/">(十一) Django - Admin</a>
 </h2>
 
 
@@ -95,14 +271,11 @@
       
       
       <p>Django有一個內建的app叫admin，它是一個後台管理系統，提供資料的新增或管理功能，在瀏覽器開啟。</p>
-<h2 id="註冊帳戶"><a href="#註冊帳戶" class="headerlink" title="註冊帳戶"></a>註冊帳戶</h2><p>第一件事就是要先創立帳戶，輸入下面指令，之後會依序要求你鍵入帳戶資料：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; python3 manage.py creatsuperuser</span><br></pre></td></tr></table></figure>
-<p>創建成功後執行runserver，網址輸入<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> ，就可以看到下面的登入畫面了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725ubSRcBxdy8.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725ubSRcBxdy8.png"></p>
-<h2 id="Register-Question"><a href="#Register-Question" class="headerlink" title="Register Question"></a>Register Question</h2><p>需要先編輯quiz/admin.py，才可以在後台系統進行資料的新增及變更：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.contrib import adminfrom .models import Question, Choiceclass ChoiceInline(admin.StackedInline): # class StachedInline    model &#x3D; Choice    extra &#x3D; 4 # 一個問題有四個選項class QuestionAdmin(admin.ModelAdmin):    list_display &#x3D; (&#39;id&#39;, &#39;question_text&#39;) # 詳細說明參考附錄圖一    fieldsets &#x3D; [        (None, &#123;&#39;fields&#39;: [&#39;question_text&#39;]&#125;),    ] # 詳細說明參考附錄圖二    inlines &#x3D; [ChoiceInline]admin.site.register(Question, QuestionAdmin)</span><br></pre></td></tr></table></figure>
-<p>admin的介面現在看得到quiz專案的Question：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Kz7Js0fULr.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Kz7Js0fULr.png"><br>點擊+add，畫面顯示可以同時新增問題及選項：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725y464HrCL9c.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725y464HrCL9c.png"></p>
-<h3 id="附錄：圖片"><a href="#附錄：圖片" class="headerlink" title="附錄：圖片"></a>附錄：圖片</h3><p>圖一：藉由list_display，可以選擇你要呈現的欄位。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725MaAAbXLPHJ.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725MaAAbXLPHJ.png"><br>圖二：filedsets是一個list，由two-tuples組成 [(name, field_options), …]，name是指該下圖這個區塊的名稱，我取None，所以介面就沒顯示了。<br><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Ho6iGT9ygV.png" alt="https://ithelp.ithome.com.tw/upload/images/20200912/20129725Ho6iGT9ygV.png"></p>
-
+      
+      <a class="article-more-link" href="/2021/02/17/Django-Admin/">
+        Read More...
+      </a>
+      
       
     </div>
     <footer class="article-footer">
@@ -165,177 +338,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://liftwo.github.io/2021/02/16/Django-%E8%B3%87%E6%96%99%E5%BA%AB%E4%BA%92%E5%8B%95/" data-id="ckl7pw9h60000nkuvds2jbee8" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-資料模型重置方法fake-實例" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/">(九) 資料模型重置方法fake-實例</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/" class="article-date">
-  <time datetime="2021-02-16T07:32:04.000Z" itemprop="datePublished">2021-02-16</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <h2 id="第一種情況：最初即使用現有的資料庫"><a href="#第一種情況：最初即使用現有的資料庫" class="headerlink" title="第一種情況：最初即使用現有的資料庫"></a>第一種情況：最初即使用現有的資料庫</h2>
-      
-      <a class="article-more-link" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95fake-%E5%AF%A6%E4%BE%8B/" data-id="ckl7pra240000kluv11iy04mf" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-資料模型重置方法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95/">(八) 資料模型重置方法</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95/" class="article-date">
-  <time datetime="2021-02-16T07:20:23.000Z" itemprop="datePublished">2021-02-16</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>之前因為要換現有的資料庫做開發，但碰到ProgrammingError的狀況，一查才知道要變更資料庫，沒我想得這麼簡單…</p>
-      
-      <a class="article-more-link" href="/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/16/%E8%B3%87%E6%96%99%E6%A8%A1%E5%9E%8B%E9%87%8D%E7%BD%AE%E6%96%B9%E6%B3%95/" data-id="ckl7orvpo000059uvaiolbu73" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-Creating-models" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/13/Creating-models/">(七) Creating models</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/13/Creating-models/" class="article-date">
-  <time datetime="2021-02-13T10:21:51.000Z" itemprop="datePublished">2021-02-13</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>今天來到Django鐵三角MVT的Models，定義我們使用的資料的型態。</p>
-      
-      <a class="article-more-link" href="/2021/02/13/Creating-models/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/13/Creating-models/" data-id="ckl3kol7w00004tuv071k39iy" class="article-share-link">
         Share
       </a>
       
