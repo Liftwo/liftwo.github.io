@@ -76,12 +76,19 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;The Easiest Harry Potter Quiz Ever&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id&#x3D;&quot;set&quot; style&#x3D;&quot;padding-top: 50px;&quot;&gt;</span><br><span class="line">~The Easiest Harry Potter Quiz Ever~</span><br><span class="line">&lt;&#x2F;div&gt;&lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">&lt;div style&#x3D;&quot;padding-top: 60px;&quot;&gt;</span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line">    &#123;% for q in question %&#125;</span><br><span class="line">    &lt;table&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123; forloop.counter &#125;&#125;.&#123;&#123;q.question_text&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">        &lt;&#x2F;tr&gt;</span><br><span class="line">        &#123;% for c in q.choice_set.all %&#125;</span><br><span class="line">            &lt;tr&gt;            </span><br><span class="line">            &lt;td&gt;&lt;input type&#x3D;&quot;radio&quot; name&#x3D;&quot;&#123;&#123; q.id &#125;&#125;&quot; id&#x3D;&quot;c-&#123;&#123; forloop.counter &#125;&#125;&quot;required&gt;&#123;&#123; c.choice_text &#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">            &lt;&#x2F;tr&gt;</span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">    &lt;&#x2F;table&gt;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">    &lt;hr width&#x3D;&quot;50%&quot; align&#x3D;&quot;left&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;submit&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
 
 1.  loop在Django的固定寫法就是{% for %}，一對大括號跟百分比，遞迴結尾要寫{% endfor %}，否則會報錯。
-2.  "forloop.counter"為遞迴的次數，我拿它當作題目的序號。
-3.  {{q.question_text}}：在template，加上一個dot就可以得到你要的欄位。若要取得context裡的值，外面 要加個{{}}，這是固定寫法。
-4.  {% for c in q.choice_set.all %}：透過"_set.all"可以得到ForeighKey相關的物件，在這邊取得了題目的四個選項。
-5.  當頁面為form表單提交時，一般都需要在form標籤中加上{% csrf_token %}，因為在settings.py有一個預設防範CSRF的模組(MIDDLEWARE中的'django.middleware.csrf.CsrfViewMiddleware')，所以若沒有添加{% csrf_token %}，在資料送出後會看到下面這個畫面：  
-    ![https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png](https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png)
 
+<ol start="2">
+<li>“forloop.counter”為遞迴的次數，我拿它當作題目的序號。
+3.  {{q.question_text}}：在template，加上一個dot就可以得到你要的欄位。若要取得context裡的值，外面 要加個{{}}，這是固定寫法。
+
+
+4.  {% for c in q.choice_set.all %}：透過"_set.all"可以得到ForeighKey相關的物件，在這邊取得了題目的四個選項。
+
+
+5.  當頁面為form表單提交時，一般都需要在form標籤中加上{% csrf_token %}，因為在settings.py有一個預設防範CSRF的模組(MIDDLEWARE中的'django.middleware.csrf.CsrfViewMiddleware')，所以若沒有添加{% csrf_token %}，在資料送出後會看到下面這個畫面：  
+
+ <img src="https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png" alt="https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png"></li>
+</ol>
 <p>小結：關於分數計算的部分明天繼續。</p>
 
       
