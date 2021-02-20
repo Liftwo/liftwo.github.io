@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    (十三) &#39;Django - render, redirect&#39; |
+    (十三) Django - render, redirect |
     
     Fly your ideas.</title>
   
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  (十三) &#39;Django - render, redirect&#39;
+  (十三) Django - render, redirect
 </h1>
 
 
@@ -68,6 +68,7 @@
       
       <h3 id="render"><a href="#render" class="headerlink" title="render( )"></a>render( )</h3><p>render是指渲染模板(template)的意思，一開始還真覺得抽象，渲染不是畫畫才會用到的名詞XD，還是直接看例子比較快：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import renderimport datetimedef homepage(request):    now &#x3D; datetime.datetime.now() # 現在時間    context &#x3D; &#123;&#39;now&#39;:now&#125;    return render(request, &#39;homepage.html&#39;, context)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>render的必要參數有：<br>✦ request<br>✦ template_name：要使用的網頁模版。</p>
 <p>另外這個範例還加了一個非必要參數：<br>✦ context：必須是dictionary。</p>
 <p>這邊看一下homepage.html，兩個大括號是固定用法，中間就放context的key：</p>
