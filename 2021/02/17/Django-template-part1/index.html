@@ -78,19 +78,22 @@
 1.  loop在Django的固定寫法就是{% for %}，一對大括號跟百分比，遞迴結尾要寫{% endfor %}，否則會報錯。
 
 
+
 2.  "forloop.counter"為遞迴的次數，我拿它當作題目的序號。
+
 
 
 3.  {{q.question_text}}：在template，加上一個dot就可以得到你要的欄位。若要取得context裡的值，外面 要加個{{}}，這是固定寫法。
 
 
+
 4.  {% for c in q.choice_set.all %}：透過"_set.all"可以得到ForeighKey相關的物件，在這邊取得了題目的四個選項。
+
 
 
 5.  當頁面為form表單提交時，一般都需要在form標籤中加上{% csrf_token %}，因為在settings.py有一個預設防範CSRF的模組(MIDDLEWARE中的'django.middleware.csrf.CsrfViewMiddleware')，所以若沒有添加{% csrf_token %}，在資料送出後會看到下面這個畫面：  
 
-<pre><code>![https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png](https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png)
-</code></pre>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png" alt="https://ithelp.ithome.com.tw/upload/images/20200915/20129725LO1euXEpVh.png"></p>
 <p>小結：關於分數計算的部分明天繼續。</p>
 
       
@@ -109,6 +112,15 @@
   
   
 <nav class="article-nav">
+  
+  <a href="/2021/02/21/i%E6%8A%93%E5%8F%96Youtube%E7%9A%84%E7%95%99%E8%A8%80%E8%B3%87%E6%96%99/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      抓取Youtube的留言資料
+      
+    </div>
+  </a>
   
   
   <a href="/2021/02/17/Django-render-redirect/" class="article-nav-link">
