@@ -71,7 +71,9 @@
 <h4 id="完整的腳本連結"><a href="#完整的腳本連結" class="headerlink" title="***完整的腳本連結"></a>***<a target="_blank" rel="noopener" href="https://github.com/Liftwo/youtube_comment/blob/main/crawl_yt.py">完整的腳本連結</a></h4><h3 id="第一步驟："><a href="#第一步驟：" class="headerlink" title="第一步驟："></a>第一步驟：</h3><p>我已經提前建立好資料庫了(用的是PostgreSQL，)這邊直接做跟資料庫連接。<br>工作表的欄位名稱依序是”video_id”、”title”及”comment”。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import psycopg2</span><br><span class="line"></span><br><span class="line">con &#x3D; psycopg2.connect(database&#x3D;&quot;yt_comment&quot;, user&#x3D;&quot;postgres&quot;, password&#x3D;&quot;****&quot;, host&#x3D;&quot;127.0.0.1&quot;, port&#x3D;&quot;5432&quot;)</span><br><span class="line">cur &#x3D; con.cursor()</span><br><span class="line">q &#x3D; &quot;INSERT INTO COMMENT VALUES(%(video_id)s, %(title)s, %(comment)s)&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="第二步驟：頻道ID、影片清單ID"><a href="#第二步驟：頻道ID、影片清單ID" class="headerlink" title="第二步驟：頻道ID、影片清單ID"></a>第二步驟：頻道ID、影片清單ID</h3><ol>
-<li><p>首先需要頻道的”頻道ID”，而獲取的方式相當簡單，進到頻道首頁後，複製網址列最後串文字”UC-ilGJ5YU9bt4yA7lnYq9nw”。如果進到首頁網址列不是長下面這樣，可以先隨便進到一個影片，然後點選頻道的首頁連結到一樣的畫面，你就會發現這次網址列會出現ID了。<br>(<a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UC-ilGJ5YU9bt4yA7lnYq9nw">https://www.youtube.com/channel/UC-ilGJ5YU9bt4yA7lnYq9nw</a>)<br>X. 接著要取得頻道的”影片清單ID”才能取得”每個影片的ID”。下圖中最下面的uploads就是影片清單的ID。</p>
+<li><p>首先需要頻道的”頻道ID”，而獲取的方式相當簡單，進到頻道首頁後，複製網址列最後串文字”UC-ilGJ5YU9bt4yA7lnYq9nw”。如果進到首頁網址列不是長下面這樣，可以先隨便進到一個影片，然後點選頻道的首頁連結到一樣的畫面，你就會發現這次網址列會出現ID了。<br>(<a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UC-ilGJ5YU9bt4yA7lnYq9nw">https://www.youtube.com/channel/UC-ilGJ5YU9bt4yA7lnYq9nw</a>)</p>
+</li>
+<li><p>接著要取得頻道的”影片清單ID”才能取得”每個影片的ID”。下圖中最下面的uploads就是影片清單的ID。</p>
 <div align="left">
  <img src="uploads_id.png" width="300px">
 </div>
