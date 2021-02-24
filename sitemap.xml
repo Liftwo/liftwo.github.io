@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://liftwo.github.io/2021/02/25/Django-redirect%E9%8C%AF%E8%AA%A4%E7%A4%BA%E7%AF%84/</loc>
+    
+    <lastmod>2021-02-24</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://liftwo.github.io/2021/02/25/Django-template%E4%BA%8C/</loc>
     
     <lastmod>2021-02-24</lastmod>
