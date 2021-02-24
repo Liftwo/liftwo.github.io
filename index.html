@@ -98,15 +98,11 @@
 <blockquote>
 <p><img src="https://ithelp.ithome.com.tw/upload/images/20200917/201297255MbnnqcIrY.png" alt="https://ithelp.ithome.com.tw/upload/images/20200917/201297255MbnnqcIrY.png"></p>
 </blockquote>
-<p>我原本從上圖官方文件得到的理解是把viewname放進redirect的第一個參數，這樣之後就會轉向result.html。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect(&#39;result&#39;, total&#x3D;sum(total))</span><br></pre></td></tr></table></figure>
-<p>所以這邊的’result’我放的是viewfunction result，但runserver完有報錯：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reverse for &#39;result&#39; not found. &#39;result&#39; is not a valid view function or pattern name.</span><br></pre></td></tr></table></figure>
-<p>Django說他找不到view result!?但說明提到pattern name，所以我就把quiz/urls.py加上name:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(&#39;result&#x2F;&lt;int:total&gt;&#39;, views.result, name&#x3D;&#39;result&#39;),</span><br></pre></td></tr></table></figure>
-<p>這樣是成功的。<br>後來再仔細看官方文件，粗略的意思是說redirect後台是由reverse所處理，而在reverse裡面除了放viewname也以放URL pattern name。</p>
-<p>那原本說好的viewname?<br>直到估狗了無數篇文章，才驚見viewname不應該有引號包覆，但再回頭看第一張圖，官方文件明明寫**’some-view-name’**，有引號啊～～看來是我誤會了…不過也知道了還可以放URL pattern name，搞了半天 哈</p>
-
+      
+      <a class="article-more-link" href="/2021/02/25/Django-redirect%E9%8C%AF%E8%AA%A4%E7%A4%BA%E7%AF%84/">
+        Read More...
+      </a>
+      
       
     </div>
     <footer class="article-footer">
@@ -172,63 +168,6 @@
       </a>
       
 <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-i抓取Youtube的留言資料" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/21/i%E6%8A%93%E5%8F%96Youtube%E7%9A%84%E7%95%99%E8%A8%80%E8%B3%87%E6%96%99/">抓取Youtube的留言資料</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/21/i%E6%8A%93%E5%8F%96Youtube%E7%9A%84%E7%95%99%E8%A8%80%E8%B3%87%E6%96%99/" class="article-date">
-  <time datetime="2021-02-20T17:13:29.000Z" itemprop="datePublished">2021-02-21</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>透過Youtube Data API，抓取影片留言的資料，最後再把資料存到PostgreSQL。<br>這個API的方式是透過不同的網址組合進入頁面獲取資料，想要什麼資料就要依不同的網址。</p>
-      
-      <a class="article-more-link" href="/2021/02/21/i%E6%8A%93%E5%8F%96Youtube%E7%9A%84%E7%95%99%E8%A8%80%E8%B3%87%E6%96%99/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/21/i%E6%8A%93%E5%8F%96Youtube%E7%9A%84%E7%95%99%E8%A8%80%E8%B3%87%E6%96%99/" data-id="cklfglo4z0000youv40b885vi" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/" rel="tag">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/youtube-data-API/" rel="tag">youtube data API</a></li></ul>
 
     </footer>
 
@@ -340,6 +279,63 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://liftwo.github.io/2021/02/17/Django-render-redirect/" data-id="ckl95ner400021puv7jtmaxny" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Django-views" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/02/17/Django-views/">(十二) Django - views</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/02/17/Django-views/" class="article-date">
+  <time datetime="2021-02-17T07:07:19.000Z" itemprop="datePublished">2021-02-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>今天來到MVT的V，views是編寫邏輯的地方，例如定義如何將資料庫的資料呈現在網頁。</p>
+      
+      <a class="article-more-link" href="/2021/02/17/Django-views/">
+        Read More...
+      </a>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/02/17/Django-views/" data-id="ckl95ner500041puv3ebi6tv0" class="article-share-link">
         Share
       </a>
       
