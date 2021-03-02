@@ -73,7 +73,7 @@
 <p>執行完後總算有資料了：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/201297252QRgYygOhM.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/201297252QRgYygOhM.png"></p>
 <p>但網頁畫面卻說：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/20129725f1CHkFhwuc.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/20129725f1CHkFhwuc.png"></p>
 <p>最後在settings.py增加下面的程式碼：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import dj_database_urlDATABASES[&#39;default&#39;] &#x3D; dj_database_url.config(conn_max_age&#x3D;600)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import dj_database_url</span><br><span class="line">DATABASES[&#39;default&#39;] &#x3D; dj_database_url.config(conn_max_age&#x3D;600)</span><br></pre></td></tr></table></figure>
 <p>小結：Heroku透過dj_database_url來定位資料庫(它是一串文字包含postgress://…username password database-name)，而因為在一開始我沒有設定DATABASE URL，所以Heroku會默認使用他們提供的設定，資料庫才會是空的。</p>
 <p>下圖的’HEROKU_POSTGRESQL_PUCE_URL’就是在沒有設置DATABASE URL時Heroku會幫你默認的資料庫相關資訊：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/20129725F8VyQAJ5fT.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/20129725F8VyQAJ5fT.png"></p>
 

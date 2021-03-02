@@ -64,7 +64,7 @@
       
       
       
-      <p>官方<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/sqlite3">說明</a>不宜使用SQLite，說明有看沒有很懂就不亂解釋，但到蠻想試看看用的話會怎樣(哪來這麼多時間)，就是今天了。</p>
+      <p>官方<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/sqlite3">說明</a>不宜使用SQLite，說明有看沒有很懂就不亂解釋，但到蠻想試看看用的話會怎樣(哪來這麼多時間)。</p>
 <a id="more"></a>
 <p>在這之前已經成功地將PostgreSQL資料庫送上Heroku，這邊只是重新把settings.py的資料庫改為SQLite，然後執行’heroku python3 manage.py migrate’，結果果然行不通：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">......</span><br><span class="line">conn &#x3D; Database.connect(**conn_params)django.db.utils.OperationalError: unable to open database file</span><br></pre></td></tr></table></figure>
