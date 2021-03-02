@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    (十六）Django - redirect的錯誤示範 |
+    (二十) 在Heroku下用SQLite會出現什麼問題 |
     
     Fly your ideas.</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-Django-redirect錯誤示範" class="article article-type-post" itemscope
+  <article id="post-在Heroku下用SQLite會出現什麼問題" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  (十六）Django - redirect的錯誤示範
+  (二十) 在Heroku下用SQLite會出現什麼問題
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/02/25/Django-redirect%E9%8C%AF%E8%AA%A4%E7%A4%BA%E7%AF%84/" class="article-date">
-  <time datetime="2021-02-24T16:53:57.000Z" itemprop="datePublished">2021-02-25</time>
+      <a href="/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/" class="article-date">
+  <time datetime="2021-03-01T17:32:49.000Z" itemprop="datePublished">2021-03-02</time>
 </a>
       
     </div>
@@ -64,24 +64,17 @@
       
       
       
-      <p>發完昨天的文後發現好像對redirect有點誤會…所以又做了更改。</p>
-<blockquote>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20200917/201297255MbnnqcIrY.png" alt="https://ithelp.ithome.com.tw/upload/images/20200917/201297255MbnnqcIrY.png"></p>
-</blockquote>
+      <p>官方<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/sqlite3">說明</a>不宜使用SQLite，說明有看沒有很懂就不亂解釋，但到蠻想試看看用的話會怎樣(哪來這麼多時間)，就是今天了。</p>
 <a id="more"></a>
-<p>我原本從上圖官方文件得到的理解是把viewname放進redirect的第一個參數，這樣之後就會轉向result.html。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect(&#39;result&#39;, total&#x3D;sum(total))</span><br></pre></td></tr></table></figure>
-<p>所以這邊的’result’我放的是viewfunction result，但runserver完有報錯：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reverse for &#39;result&#39; not found. &#39;result&#39; is not a valid view function or pattern name.</span><br></pre></td></tr></table></figure>
-<p>Django說他找不到view result!?但說明提到pattern name，所以我就把quiz/urls.py加上name:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(&#39;result&#x2F;&lt;int:total&gt;&#39;, views.result, name&#x3D;&#39;result&#39;),</span><br></pre></td></tr></table></figure>
-<p>這樣是成功的。<br>後來再仔細看官方文件，粗略的意思是說redirect後台是由reverse所處理，而在reverse裡面除了放viewname也以放URL pattern name。</p>
-<p>那原本說好的viewname?<br>直到估狗了無數篇文章，才驚見viewname不應該有引號包覆，但再回頭看第一張圖，官方文件明明寫**’some-view-name’**，有引號啊～～看來是我誤會了…不過也知道了還可以放URL pattern name，搞了半天 哈</p>
+<p>在這之前已經成功地將PostgreSQL資料庫送上Heroku，這邊只是重新把settings.py的資料庫改為SQLite，然後執行’heroku python3 manage.py migrate’，結果果然行不通：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">......</span><br><span class="line">conn &#x3D; Database.connect(**conn_params)django.db.utils.OperationalError: unable to open database file</span><br></pre></td></tr></table></figure>
+<p>這邊有出現兩個提示：<br>1.sqlite3.OperationalError: unable to open database file<br>2.django.db.utils.OperationalError: unable to open database file</p>
+<p>後來想說如改把local資料庫送上去咧，先在網路上找到這個CLI指令’heroku db:push’，但又再看到<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/changelog-items/333">另一篇</a>，表示這個指令已不存在，被取代成’heroku pg:push’，而這邊的pg全名就是Postgres，內容也寫說Heroku至此不支援非Postgres資料庫了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/25/Django-redirect%E9%8C%AF%E8%AA%A4%E7%A4%BA%E7%AF%84/" data-id="ckljolse800008buvghbl2ugn" class="article-share-link">
+      <a data-url="https://liftwo.github.io/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/" data-id="cklrkl8h800020luvfal4hcr3" class="article-share-link">
         Share
       </a>
       
@@ -95,19 +88,19 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/02/26/Django-template3/" class="article-nav-link">
+  <a href="/2021/03/02/Heroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8C/" class="article-nav-link">
     <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
-      (十七) Django - template(part3)
+      (二十一) 部署網站with Heroku-資料庫問題
       
     </div>
   </a>
   
   
-  <a href="/2021/02/25/Django-template%E4%BA%8C/" class="article-nav-link">
+  <a href="/2021/02/26/%E5%86%8D%E6%AC%A1CSS-Grid/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">(十五)Django - template(part2)</div>
+    <div class="article-nav-title">(十九) 再次CSS Grid</div>
   </a>
   
 </nav>
