@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    (二十一) 部署網站with Heroku-資料庫問題 |
+    部署網站with Heroku - 靜態檔案 |
     
     Fly your ideas.</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-Heroku-資料庫問題" class="article article-type-post" itemscope
+  <article id="posts-Heroku-靜態檔案" class="article article-type-posts" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  (二十一) 部署網站with Heroku-資料庫問題
+  部署網站with Heroku - 靜態檔案
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/03/02/Heroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8C/" class="article-date">
-  <time datetime="2021-03-01T17:42:33.000Z" itemprop="datePublished">2021-03-02</time>
+      <a href="/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/" class="article-date">
+  <time datetime="2021-03-02T06:05:27.000Z" itemprop="datePublished">2021-03-02</time>
 </a>
       
     </div>
@@ -58,29 +58,28 @@
 
     
     
+<div class="tocbot"></div>
+
     
 
     <div class="article-entry" itemprop="articleBody">
       
       
       
-      <p>一開始學用Heroku部署網站時，碰到許多資料庫配置的問題，下面是原本資料庫的設定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DATABASES &#x3D; &#123;    </span><br><span class="line">    &#39;default&#39;: &#123;        </span><br><span class="line">    &#39;ENGINE&#39;: &#39;django.db.backends.postgresql&#39;,        </span><br><span class="line">    &#39;NAME&#39;: &#39;quiz&#39;,        </span><br><span class="line">    &#39;USER&#39;: &#39;XXXX&#39;,        </span><br><span class="line">    &#39;PASSWORD&#39;: &#39;XXXXX&#39;,        </span><br><span class="line">    &#39;HOST&#39;: &#39;localhost&#39;,    </span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <p>是時候來了解一下STATIC_ROOT、STATICFILES_DIRS、STATIC_URL三者的不同了，之前都只是依樣畫葫蘆的做。</p>
 <a id="more"></a>
-<p>整個專案都透過git上傳到heroku，但heroku顯示一個資料工作表都沒有：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/20129725IjyvIb40Lh.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/20129725IjyvIb40Lh.png"></p>
-<p>我先手動把資料庫上傳上去，在Terminal執行下面命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku pg:push postgres:&#x2F;&#x2F;localhost&#x2F;資料庫的名字quiz postgresql-infinite-12345 --app django-hp-quiz</span><br></pre></td></tr></table></figure>
-<p>執行完後總算有資料了：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/201297252QRgYygOhM.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/201297252QRgYygOhM.png"></p>
-<p>但網頁畫面卻說：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/20129725f1CHkFhwuc.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/20129725f1CHkFhwuc.png"></p>
-<p>最後在settings.py增加下面的程式碼：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import dj_database_url</span><br><span class="line">DATABASES[&#39;default&#39;] &#x3D; dj_database_url.config(conn_max_age&#x3D;600)</span><br></pre></td></tr></table></figure>
-<p>小結：Heroku透過dj_database_url來定位資料庫(它是一串文字包含postgress://…username password database-name)，而因為在一開始我沒有設定DATABASE URL，所以Heroku會默認使用他們提供的設定，資料庫才會是空的。</p>
-<p>下圖的’HEROKU_POSTGRESQL_PUCE_URL’就是在沒有設置DATABASE URL時Heroku會幫你默認的資料庫相關資訊：<br><img src="https://ithelp.ithome.com.tw/upload/images/20200922/20129725F8VyQAJ5fT.png" alt="https://ithelp.ithome.com.tw/upload/images/20200922/20129725F8VyQAJ5fT.png"></p>
+<h3 id="STATIC-ROOT"><a href="#STATIC-ROOT" class="headerlink" title="STATIC_ROOT"></a>STATIC_ROOT</h3><p>在部署網站的時候，下完’git push heroku master’指令後，會看到終端機跑出’python manage.py collectstatic’，其目的是要將所有靜態檔案蒐集到指定目錄，所以開發者需要在settings.py新增’STATIC_ROOT’項目，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATIC_ROOT &#x3D; os.path.join(BASE_DIR, &quot;staticfiles&quot;)#須為絕對路徑，資料夾名看網上大家用的不一定一樣。</span><br></pre></td></tr></table></figure>
+<h3 id="STATICFILES-DIRS"><a href="#STATICFILES-DIRS" class="headerlink" title="STATICFILES_DIRS"></a>STATICFILES_DIRS</h3><p>STATICFILES_DIRS代表的是放靜態文件的路徑，而Django就是掃遍STATICFILES_DIRS裡的絕對路徑逐一蒐集到STATIC_ROOT裡的。<br>mysite專案的static資料夾是獨立於app的，如果有其他app的，我規劃靜態文件也是通通都放這裡，像公共資料夾一樣。當然也可以在各app底下建立專屬的static資料夾，STATICFILES_DIRS因此擴充成下面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS &#x3D; [</span><br><span class="line">    &quot;&#x2F;mysite&#x2F;quiz&#x2F;static&quot;,</span><br><span class="line">    &quot;&#x2F;mysite&#x2F;sth&#x2F;static&quot;,]</span><br></pre></td></tr></table></figure>
+<h3 id="STATIC-URL"><a href="#STATIC-URL" class="headerlink" title="STATIC_URL"></a>STATIC_URL</h3><p>跟要在urls.py加上每個app的urlpattern一樣，靜態檔案也需要一組url，才得以在瀏覽器瀏覽，而STATIC_URL格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATIC_URL &#x3D; &#39;&#x2F;static&#x2F;&#39;#static是資料夾名稱。#只要在瀏覽器輸入http:&#x2F;&#x2F;158.0.0.1:8000&#x2F;static&#x2F;result.css，就可以看得到檔案內容。</span><br></pre></td></tr></table></figure>
+<p>小結：STATIC_ROOT只有在部署網站時才會需要用到。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/03/02/Heroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8C/" data-id="cklrkl8h100000luv2w4qbzn5" class="article-share-link">
+      <a data-url="https://liftwo.github.io/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/" data-id="cklrm9lxm0000uuuv87wvfsd5" class="article-share-link">
         Share
       </a>
       
@@ -94,19 +93,10 @@
   
 <nav class="article-nav">
   
+  
   <a href="/2021/03/02/%E9%83%A8%E7%BD%B2%E7%B6%B2%E7%AB%99withHeroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8Ccontinue/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      (二十二) 部署網站with Heroku - 資料庫問題(續)
-      
-    </div>
-  </a>
-  
-  
-  <a href="/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">(二十) 在Heroku下用SQLite會出現什麼問題</div>
+    <div class="article-nav-title">(二十二) 部署網站with Heroku - 資料庫問題(續)</div>
   </a>
   
 </nav>
