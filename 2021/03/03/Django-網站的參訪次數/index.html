@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    (二十二) 部署網站with Heroku - 資料庫問題(續) |
+    (二十四) Django - 網站的參訪次數 |
     
     Fly your ideas.</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-部署網站withHeroku-資料庫問題continue" class="article article-type-post" itemscope
+  <article id="posts-Django-網站的參訪次數" class="article article-type-posts" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  (二十二) 部署網站with Heroku - 資料庫問題(續)
+  (二十四) Django - 網站的參訪次數
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/03/02/%E9%83%A8%E7%BD%B2%E7%B6%B2%E7%AB%99withHeroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8Ccontinue/" class="article-date">
-  <time datetime="2021-03-02T05:48:48.000Z" itemprop="datePublished">2021-03-02</time>
+      <a href="/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/" class="article-date">
+  <time datetime="2021-03-03T10:30:35.000Z" itemprop="datePublished">2021-03-03</time>
 </a>
       
     </div>
@@ -58,24 +58,26 @@
 
     
     
+<div class="tocbot"></div>
+
     
 
     <div class="article-entry" itemprop="articleBody">
       
       
       
-      <p>其實一直有點困惑，原先參考了網路的一篇教學及書籍，如果是要使用現有的資料庫，前者寫説要用pg:push指令另外再把資料庫搬進去，但書籍並沒有提到甚至連要在settings.py新增DATABASE_URL都沒有，這樣部署後資料怎麼找得到？</p>
-<p>總而言之再整理一下目前了解到的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db_from_env &#x3D; dj_database_url.config(conn_max_age&#x3D;600)</span><br><span class="line">DATABASES[&#39;default&#39;].update(db_from_env)</span><br></pre></td></tr></table></figure>
+      <p>這部分會使用到session，Django已經自動幫我們安裝session的app，分別是INSTALLED_APPS的’django.contrib.sessions’以及MIDDLEWARE的 ‘django.contrib.sessions.middleware.SessionMiddleware’。</p>
 <a id="more"></a>
-<p>上述兩行的意義在於，這邊需要透過python的套件dj_database_url，將Heroku的DATABASE_URL轉換成Django可讀取的值。</p>
-<p>DATABASE_URL的格式：postgress://user:password@HOST:port/Database。<br>使用者密碼這些資料可以透過下面指令(Heroku網頁介面也可以)來查看：<br><code>heroku pg:credentials:url DATABASE</code></p>
-<p>小結：相對於Django專案的一般檔案只要commit到Heroku即可，資料庫卻要個別處理，看來還要再繼續努力研究…</p>
-
+<h3 id="第一步：models-py"><a href="#第一步：models-py" class="headerlink" title="第一步：models.py"></a>第一步：models.py</h3><p>新增Visit資料工作表，用於儲存網站瀏覽次數。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Visit(models.Model):</span><br><span class="line">    times &#x3D; models.IntegerField()</span><br></pre></td></tr></table></figure>
+<h3 id="第二步：views-py"><a href="#第二步：views-py" class="headerlink" title="第二步：views.py"></a>第二步：views.py</h3><p>以字典的方式設定session，比如’request.session[“名稱”]=值’。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def visitor_count(request):</span><br><span class="line">    if &quot;quiz&quot; not in request.session: #如果session沒有紀錄</span><br><span class="line">        request.session[&quot;quiz&quot;]&#x3D;True #session儲存name:quiz value:True</span><br><span class="line">        visit_model &#x3D; Visit.objects.get(pk&#x3D;1) #拜訪人數</span><br><span class="line">        visit_model.times +&#x3D; 1 #拜訪人數加一</span><br><span class="line">        visit_model.save()</span><br><span class="line">    else:</span><br><span class="line">        visit_model &#x3D; Visit.objects.get(pk&#x3D;1)</span><br><span class="line">        visit_model.times +&#x3D; 0</span><br><span class="line">        visit_model.save()</span><br><span class="line">    context &#x3D; &#123;&#39;visit_template&#39;: visit_model.times&#125;</span><br><span class="line">    return render(request, &#39;visitor_count.html&#39;, context)</span><br></pre></td></tr></table></figure>
+<h3 id="第三步：urls-py"><a href="#第三步：urls-py" class="headerlink" title="第三步：urls.py"></a>第三步：urls.py</h3><p>最後記得加上urlpattern：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns &#x3D; [</span><br><span class="line">    ...</span><br><span class="line">    path(&#39;visitorcount&#39;, views.visitor_count),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/03/02/%E9%83%A8%E7%BD%B2%E7%B6%B2%E7%AB%99withHeroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8Ccontinue/" data-id="cklrm9ly20001uuuv8hkxetr1" class="article-share-link">
+      <a data-url="https://liftwo.github.io/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/" data-id="ckltbiqa400011yuv284l8ib4" class="article-share-link">
         Share
       </a>
       
@@ -89,19 +91,19 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/" class="article-nav-link">
+  <a href="/2021/03/03/Django-%E6%9C%83%E5%93%A1%E7%B3%BB%E7%B5%B1p1/" class="article-nav-link">
     <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
-      (二十三) 部署網站with Heroku - 靜態檔案
+      (二十五) Django - 會員系統(part1)
       
     </div>
   </a>
   
   
-  <a href="/2021/03/02/Heroku-%E8%B3%87%E6%96%99%E5%BA%AB%E5%95%8F%E9%A1%8C/" class="article-nav-link">
+  <a href="/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">(二十一) 部署網站with Heroku-資料庫問題</div>
+    <div class="article-nav-title">(二十三) 部署網站with Heroku - 靜態檔案</div>
   </a>
   
 </nav>

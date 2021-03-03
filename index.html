@@ -62,6 +62,122 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="posts-Django-會員系統p1" class="article article-type-posts" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/03/Django-%E6%9C%83%E5%93%A1%E7%B3%BB%E7%B5%B1p1/">(二十五) Django - 會員系統(part1)</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/03/03/Django-%E6%9C%83%E5%93%A1%E7%B3%BB%E7%B5%B1p1/" class="article-date">
+  <time datetime="2021-03-03T10:41:07.000Z" itemprop="datePublished">2021-03-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>先來建置註冊的部分。</p>
+<h3 id="第一步：models-py"><a href="#第一步：models-py" class="headerlink" title="第一步：models.py"></a>第一步：models.py</h3><p>新增Register資料工作表來儲存註冊的帳號及密碼：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Register(models.Model):</span><br><span class="line">    username &#x3D; models.CharField(max_length&#x3D;20)</span><br><span class="line">    password &#x3D; models.CharField(max_length&#x3D;20)</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2021/03/03/Django-%E6%9C%83%E5%93%A1%E7%B3%BB%E7%B5%B1p1/">
+        Read More...
+      </a>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/03/03/Django-%E6%9C%83%E5%93%A1%E7%B3%BB%E7%B5%B1p1/" data-id="ckltbiq9q00001yuv6evk3djo" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="posts-Django-網站的參訪次數" class="article article-type-posts" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/">(二十四) Django - 網站的參訪次數</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/" class="article-date">
+  <time datetime="2021-03-03T10:30:35.000Z" itemprop="datePublished">2021-03-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>這部分會使用到session，Django已經自動幫我們安裝session的app，分別是INSTALLED_APPS的’django.contrib.sessions’以及MIDDLEWARE的 ‘django.contrib.sessions.middleware.SessionMiddleware’。</p>
+      
+      <a class="article-more-link" href="/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/">
+        Read More...
+      </a>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liftwo.github.io/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/" data-id="ckltbiqa400011yuv284l8ib4" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="posts-Heroku-靜態檔案" class="article article-type-posts" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -71,7 +187,7 @@
       
 
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/">部署網站with Heroku - 靜態檔案</a>
+  <a class="article-title" href="/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/">(二十三) 部署網站with Heroku - 靜態檔案</a>
 </h2>
 
 
@@ -236,126 +352,12 @@
 
 </article>
     
-    <article id="post-在Heroku下用SQLite會出現什麼問題" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/">(二十) 在Heroku下用SQLite會出現什麼問題</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/" class="article-date">
-  <time datetime="2021-03-01T17:32:49.000Z" itemprop="datePublished">2021-03-02</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>官方<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/sqlite3">說明</a>不宜使用SQLite，說明有看沒有很懂就不亂解釋，但到蠻想試看看用的話會怎樣(哪來這麼多時間)。</p>
-      
-      <a class="article-more-link" href="/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/03/02/%E5%9C%A8Heroku%E4%B8%8B%E7%94%A8SQLite%E6%9C%83%E5%87%BA%E7%8F%BE%E4%BB%80%E9%BA%BC%E5%95%8F%E9%A1%8C/" data-id="cklrkl8h800020luvfal4hcr3" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-再次CSS-Grid" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/26/%E5%86%8D%E6%AC%A1CSS-Grid/">(十九) 再次CSS Grid</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/02/26/%E5%86%8D%E6%AC%A1CSS-Grid/" class="article-date">
-  <time datetime="2021-02-26T09:08:45.000Z" itemprop="datePublished">2021-02-26</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>終於找出昨天的問題了，下圖才是我想呈現的結果，特地加上顏色來辨認每個區塊，才不會像昨天試到亂掉 哀<br><img src="https://ithelp.ithome.com.tw/upload/images/20200920/20129725G0RQSnkNTY.png" alt="https://ithelp.ithome.com.tw/upload/images/20200920/20129725G0RQSnkNTY.png"></p>
-      
-      <a class="article-more-link" href="/2021/02/26/%E5%86%8D%E6%AC%A1CSS-Grid/">
-        Read More...
-      </a>
-      
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://liftwo.github.io/2021/02/26/%E5%86%8D%E6%AC%A1CSS-Grid/" data-id="cklm2ywvs000387uv4u6ved2l" class="article-share-link">
-        Share
-      </a>
-      
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag">it邦鐵人賽</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一頁</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一頁</a>
   </nav>
   
 </section>

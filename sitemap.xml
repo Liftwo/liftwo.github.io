@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://liftwo.github.io/2021/03/03/Django-%E6%9C%83%E5%93%A1%E7%B3%BB%E7%B5%B1p1/</loc>
+    
+    <lastmod>2021-03-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://liftwo.github.io/2021/03/03/Django-%E7%B6%B2%E7%AB%99%E7%9A%84%E5%8F%83%E8%A8%AA%E6%AC%A1%E6%95%B8/</loc>
+    
+    <lastmod>2021-03-03</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://liftwo.github.io/2021/03/02/Heroku-%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88/</loc>
     
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
     
   </url>
   
@@ -193,7 +207,7 @@
 
   <url>
     <loc>https://liftwo.github.io/</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -201,28 +215,28 @@
   
   <url>
     <loc>https://liftwo.github.io/tags/pycharm/</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://liftwo.github.io/tags/django/</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://liftwo.github.io/tags/it%E9%82%A6%E9%90%B5%E4%BA%BA%E8%B3%BD/</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://liftwo.github.io/tags/css/</loc>
-    <lastmod>2021-03-02</lastmod>
+    <lastmod>2021-03-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
